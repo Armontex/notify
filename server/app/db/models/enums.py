@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RepeatStatus(Enum):
     """
     Статус откладывания уведомлений

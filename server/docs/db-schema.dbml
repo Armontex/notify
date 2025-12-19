@@ -19,6 +19,6 @@ Table notifications {
   id int [pk, increment]
   record_id int [unique, not null, ref: > records.id]
   notify_on timestamp [not null]
-  repeat int [not null, default: 0]
+  repeat RepeatStatus [not null, default: 'OFF']
   sent_at timestamp
 }
