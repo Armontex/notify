@@ -1,4 +1,4 @@
-from app.core.security import verify_password, hash_password
+from app.core.security.password import verify_password, hash_password
 from string import ascii_letters, digits, punctuation
 import random
 

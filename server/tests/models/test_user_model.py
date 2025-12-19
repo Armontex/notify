@@ -1,5 +1,5 @@
 from app.db.models.user import User
-from app.core.security import verify_password, hash_password
+from app.core.security.password import verify_password, hash_password
 
 def test_create_user(session):
 
