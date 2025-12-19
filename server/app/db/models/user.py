@@ -1,7 +1,8 @@
+from __future__ import annotations
+from .record import Record
 from ..base import Base
-from datetime import datetime, UTC
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import String, func, DateTime
 
 
 class User(Base):
@@ -12,5 +13,7 @@ class User(Base):
                                           nullable=False,
                                           unique=True)
     hash_password: Mapped[str] = mapped_column(String(255), nullable=False)
-    register_at: Mapped[datetime] = mapped_column(
-        nullable=False, default=lambda: datetime.now(UTC))
+    register_at: Mapped[DateTime] = mapped_column(
+        nullable=False, default=func.now())
+
+    records: Mapped[list[Record]] = relationship(Record, back_populates="user")
