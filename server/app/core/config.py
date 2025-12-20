@@ -13,9 +13,8 @@ class Settings(BaseSettings):
     SECRET_KEY: SecretStr
     ACCESS_TOKEN_EXPIRE_MINUTES: int
     JWT_ALGORITHM: str
+    
+    def get_DB_URL(self) -> str:
+        return f"sqlite+aiosqlite:///{BASE_DIR / self.DB_URL}"
 
 settings = Settings()  # type: ignore
-
-if settings.DB_URL.startswith("sqlite:///"):
-    relative_path = settings.DB_URL.removeprefix("sqlite:///")
-    settings.DB_URL = f"sqlite:///{BASE_DIR / relative_path}"

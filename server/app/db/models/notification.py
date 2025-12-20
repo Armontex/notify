@@ -26,4 +26,5 @@ class Notification(Base):
 
     record: Mapped[Record] = relationship("Record",
                                           back_populates="notification",
-                                          uselist=False)
+                                          uselist=False,
+                                          lazy="selectin")

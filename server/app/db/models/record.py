@@ -18,16 +18,23 @@ class Record(Base):
                                          ForeignKey("users.id"),
                                          nullable=False)
     title: Mapped[str] = mapped_column(VARCHAR(255), default="Новая запись")
-    content: Mapped[str] = mapped_column(VARCHAR(10000), nullable=False, default='')
+    content: Mapped[str] = mapped_column(VARCHAR(10000),
+                                         nullable=False,
+                                         default='')
     created_at: Mapped[datetime] = mapped_column(nullable=False,
                                                  default=func.now())
     updated_at: Mapped[datetime] = mapped_column(nullable=False,
                                                  default=func.now(),
                                                  onupdate=func.now())
 
-    user: Mapped[User] = relationship("User", back_populates="records")
+    user: Mapped[User] = relationship("User",
+                                      back_populates="records",
+                                      lazy="selectin")
     notification: Mapped[Notification | None] = relationship(
-        "Notification", back_populates="record", uselist=False)
+        "Notification",
+        back_populates="record",
+        uselist=False,
+        lazy="selectin")
 
 
 @event.listens_for(Record, "before_update", propagate=True)

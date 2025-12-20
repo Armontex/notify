@@ -22,4 +22,5 @@ class User(Base):
                                                   default=func.now())
 
     records: Mapped[list[Record]] = relationship("Record",
-                                                 back_populates="user")
+                                                 back_populates="user",
+                                                 lazy="selectin")
