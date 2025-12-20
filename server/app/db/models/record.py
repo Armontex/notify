@@ -1,7 +1,7 @@
 from __future__ import annotations
-from datetime import datetime
+from datetime import datetime, UTC
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import VARCHAR, ForeignKey, func, Integer
+from sqlalchemy import VARCHAR, ForeignKey, func, Integer, event
 from ..base import Base
 
 from typing import TYPE_CHECKING
@@ -27,4 +27,9 @@ class Record(Base):
 
     user: Mapped[User] = relationship("User", back_populates="records")
     notification: Mapped[Notification | None] = relationship(
-        "Notification", back_populates="record")
+        "Notification", back_populates="record", uselist=False)
+
+
+@event.listens_for(Record, "before_update", propagate=True)
+def update_record_updated_at(mapper, connection, target):
+    target.updated_at = datetime.now(UTC)

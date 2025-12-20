@@ -1,18 +1,17 @@
-from loguru import logger
 import sys
-from pathlib import Path
+from loguru import logger
+from .constants import LOG_DIR
 
 LOG_FORMAT = "<green>{time:HH:mm:ss}</green> | <level>{level}</level> | " \
              "{name}:{function}:{line} - {message}"
 
 logger.remove()
 
-log_dir = Path("server/logs") # FIXME: Сделать абсолютный путь
-log_dir.mkdir(exist_ok=True)
+LOG_DIR.mkdir(exist_ok=True)
 
 
 logger.add(
-    log_dir / "server.log",
+    LOG_DIR / "server.log",
     rotation="10 MB",
     retention="10 days",
     compression="zip",

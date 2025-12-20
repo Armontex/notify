@@ -1,7 +1,7 @@
 from __future__ import annotations
 from datetime import datetime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey, func, Integer, Enum
+from sqlalchemy import ForeignKey, Integer, Enum
 from ..base import Base
 from .enums import RepeatStatus
 
@@ -18,12 +18,12 @@ class Notification(Base):
                                            ForeignKey("records.id"),
                                            unique=True,
                                            nullable=False)
-    notify_on: Mapped[datetime] = mapped_column(nullable=False,
-                                                default=func.now())
+    notify_on: Mapped[datetime] = mapped_column(nullable=False)
     repeat: Mapped[RepeatStatus] = mapped_column(Enum(RepeatStatus),
                                                  nullable=False,
                                                  default=RepeatStatus.OFF)
     sent_at: Mapped[datetime | None]
 
     record: Mapped[Record] = relationship("Record",
-                                          back_populates="notification")
+                                          back_populates="notification",
+                                          uselist=False)
