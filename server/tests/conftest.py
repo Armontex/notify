@@ -48,12 +48,13 @@
 #             await session.rollback()
 
 import pytest
+from typing import Generator
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 from app.db.base import Base
 
 @pytest.fixture
-async def session():
+async def session() -> Session:
     engine = create_async_engine("sqlite+aiosqlite:///:memory:", echo=True)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)

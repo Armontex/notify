@@ -19,7 +19,7 @@ class User(Base):
                                           unique=True)
     hash_password: Mapped[str] = mapped_column(VARCHAR(255), nullable=False)
     register_at: Mapped[datetime] = mapped_column(nullable=False,
-                                                  default=func.now())
+                                                  server_default=func.now())
 
     records: Mapped[list[Record]] = relationship("Record",
                                                  back_populates="user",

@@ -59,3 +59,4 @@ async def test_notification_unique_record_id(session):
 
     with pytest.raises(IntegrityError):
         await session.commit()
+        await session.rollback()

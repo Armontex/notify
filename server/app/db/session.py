@@ -16,3 +16,5 @@ AsyncSessionLocal = async_sessionmaker(
     expire_on_commit=False,
     class_=AsyncSession,
 )
+
+# FIXME: Исправить

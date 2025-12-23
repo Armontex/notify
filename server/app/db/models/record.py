@@ -22,9 +22,9 @@ class Record(Base):
                                          nullable=False,
                                          default='')
     created_at: Mapped[datetime] = mapped_column(nullable=False,
-                                                 default=func.now())
+                                                 server_default=func.now())
     updated_at: Mapped[datetime] = mapped_column(nullable=False,
-                                                 default=func.now(),
+                                                 server_default=func.now(),
                                                  onupdate=func.now())
 
     user: Mapped[User] = relationship("User",
